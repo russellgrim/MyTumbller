@@ -14,19 +14,40 @@ void Wheel::setup() {
     pinMode(STBY_PIN, OUTPUT);
     pinMode(MY_LED, OUTPUT);
 
-    
-
     stop();
     forward(255);
-    
-    
+    start_time = millis();
+    print_current_time_and_encoder();
+}
+
+
+
+void Wheel::print_current_time_and_encoder() {
+    Serial.print( millis() - start_time );
+    Serial.print(",");
+    Serial.println(encoder_count_left_a);
 }
 
 void Wheel::loop() {
-    Serial.println(encoder_count_left_a);
-    ;
+    
+    if ( millis() - start_time < 5000) {
+        if ( _is_sample_time() ) {
+            print_current_time_and_encoder();
+        }
+        
+    } else {
+        stop();
+    }
 }
 
+bool Wheel::_is_sample_time(){
+    if (millis() - previous_sample_time > sample_period){
+        previous_sample_time = millis();
+        return true;
+    }else {
+        return false;
+    }
+}
 
 void Wheel::stop() {
   digitalWrite(AIN1, HIGH);
