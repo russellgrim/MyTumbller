@@ -20,18 +20,22 @@ void Wheel::setup() {
     print_current_time_and_encoder();
 }
 
-
+void Wheel::_calculate_speed(){
+    speed = (float)( encoder_count_left_a - previous_position ) / (float)sample_period ; //dx/dt
+    previous_position = encoder_count_left_a;
+}
 
 void Wheel::print_current_time_and_encoder() {
     Serial.print( millis() - start_time );
     Serial.print(",");
-    Serial.println(encoder_count_left_a);
+    Serial.println(speed);
 }
 
 void Wheel::loop() {
     
     if ( millis() - start_time < 5000) {
         if ( _is_sample_time() ) {
+            _calculate_speed();
             print_current_time_and_encoder();
         }
         
