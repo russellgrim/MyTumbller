@@ -5,7 +5,7 @@
 
 class Controller {
 public:
-    Controller (); //constructor
+    Controller (); // Constructor
     ~Controller(); // Destructor
     void setup();
     void loop();
@@ -13,9 +13,5 @@ public:
 private:
 
 };
-
-
-
-
 
 #endif
