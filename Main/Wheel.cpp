@@ -15,7 +15,6 @@ void Wheel::setup() {
     pinMode(MY_LED, OUTPUT);
 
     stop();
-    forward(255);
     start_time = millis();
     print_current_time_and_encoder();
 }
@@ -31,12 +30,21 @@ void Wheel::print_current_time_and_encoder() {
     Serial.println(speed);
 }
 
+void Wheel::_calculate_pwm_in(){
+    error_p = target_speed - speed;
+    error_i += error_p;
+    pwm = Kp * error_p + Ki * error_i;
+    if (pwm > 255) {pwm = 255;}
+}
+
 void Wheel::loop() {
     
-    if ( millis() - start_time < 5000) {
+    if ( millis() - start_time < 15000) {
         if ( _is_sample_time() ) {
             _calculate_speed();
+            _calculate_pwm_in();
             print_current_time_and_encoder();
+            forward(pwm);
         }
         
     } else {

@@ -23,8 +23,18 @@ private:
     float sample_period = 50.0; //ms
     int previous_sample_time = millis();
     
+    //control
+    float target_speed = 0.5;
+    unsigned char pwm;
+    float error_p;
+    float error_i = 0;
+    float Kp = 1000;
+    float Ki = 300;
+
+
     bool _is_sample_time();
     void _calculate_speed();
+    void _calculate_pwm_in();
 };
 
 #endif
