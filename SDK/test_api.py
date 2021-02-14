@@ -32,3 +32,6 @@ def test_send_command():
     # assert(line == "led start blinking")
     time.sleep(4)
     api.send_command("led stop blinking")
+
+def test_start_pid():
+    api.send_command("pid")

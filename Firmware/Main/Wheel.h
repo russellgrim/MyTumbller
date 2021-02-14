@@ -13,6 +13,7 @@ public:
     void forward(unsigned char speed);
     void encoderCountLeftA();
     void print_current_time_and_encoder();
+    void set_mode(String modeIn);
 
 private:
     // unsigned char speed = 20;
@@ -22,6 +23,9 @@ private:
     unsigned long start_time;
     float sample_period = 50.0; //ms
     int previous_sample_time = millis();
+    
+    //admin
+    String mode = "None";
     
     //control
     float target_speed = 0.5;
@@ -35,6 +39,7 @@ private:
     bool _is_sample_time();
     void _calculate_speed();
     void _calculate_pwm_in();
+    void _PID_loop();
 };
 
 #endif

@@ -4,12 +4,13 @@
 
 
 
+
 Wheel::Wheel() {;} // Constructor
 
 Wheel::~Wheel() {;} // Destructor
 
 void Wheel::setup() {
-    Serial.begin(115200);
+    
     pinMode(AIN1, OUTPUT);
     pinMode(BIN1, OUTPUT);
     pinMode(PWMA_LEFT, OUTPUT);
@@ -19,6 +20,29 @@ void Wheel::setup() {
     stop();
     start_time = millis();
     // print_current_time_and_encoder();
+}
+
+void Wheel::loop() {
+    if (mode  == "PID"){
+        _PID_loop();    
+    } else if (mode == "Step"){
+        ;
+    } else if (mode == "None") {;}
+    }
+
+
+void Wheel::_PID_loop (){
+    if ( millis() - start_time < 15000) {
+        if ( _is_sample_time() ) {
+            _calculate_speed();
+            _calculate_pwm_in();
+            print_current_time_and_encoder();
+            forward(pwm);
+        }
+        
+    } else {
+        stop();
+    }
 }
 
 void Wheel::_calculate_speed(){
@@ -39,20 +63,7 @@ void Wheel::_calculate_pwm_in(){
     if (pwm > 255) {pwm = 255;}
 }
 
-void Wheel::loop() {
-    
-    if ( millis() - start_time < 15000) {
-        if ( _is_sample_time() ) {
-            _calculate_speed();
-            _calculate_pwm_in();
-            print_current_time_and_encoder();
-            forward(pwm);
-        }
-        
-    } else {
-        stop();
-    }
-}
+
 
 bool Wheel::_is_sample_time(){
     if (millis() - previous_sample_time > sample_period){
@@ -78,4 +89,9 @@ void Wheel::forward(unsigned char speed) {
 
 void Wheel::encoderCountLeftA() {
   encoder_count_left_a++;
+}
+
+void Wheel::set_mode(String modeIn) {
+    mode = modeIn;
+    start_time = millis(); // restart clock
 }

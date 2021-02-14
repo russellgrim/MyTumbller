@@ -16,6 +16,7 @@ String command;
 
 
 void setup() {
+  Serial.begin(115200);
   left_wheel.setup();
   led_1.setup();
   
@@ -24,7 +25,7 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop() {
-  // left_wheel.loop();
+  left_wheel.loop();
   led_1.loop();
   read_serial();
 }
@@ -57,5 +58,7 @@ void parse_command(String com){
     led_1.start_blinking();
   } else if (com.equalsIgnoreCase("led stop blinking") ){
     led_1.stop_blinking();
+  } else if (com.equalsIgnoreCase("pid") ) {
+    left_wheel.set_mode("PID");
   }
 }
