@@ -12,6 +12,22 @@
 
 ## Python
 * Virtual enviromnetms
+    * pip install virtualenv
     * python3 -m venv env
     * env\Scripts\activate.bat
     * deactivate
+* Requirements
+    * pip install -r requirements.txt
+    * pip list
+* Delinting
+    * Navigate to the folder
+    * pylint
+* Testing
+    * Navigate to the folder
+    * pytest
+    * pytest test_mytest.py
+    * pytest test_mytest.py::test_sometest
+* Documentation
+    * Deoxigen
+* Logging 
+    * TBC

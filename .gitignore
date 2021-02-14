@@ -34,3 +34,7 @@
 *.log
 logs/
 env/
+SDK/logs
+
+*.pyc
+*.pyo

@@ -2,12 +2,14 @@
 #include "Pins.h"
 
 
+
+
 Wheel::Wheel() {;} // Constructor
 
 Wheel::~Wheel() {;} // Destructor
 
 void Wheel::setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     pinMode(AIN1, OUTPUT);
     pinMode(BIN1, OUTPUT);
     pinMode(PWMA_LEFT, OUTPUT);
