@@ -9,3 +9,9 @@
     * git add *
     * git commit -m "some commit message"
     * git push
+
+## Python
+* Virtual enviromnetms
+    * python3 -m venv env
+    * env\Scripts\activate.bat
+    * deactivate
