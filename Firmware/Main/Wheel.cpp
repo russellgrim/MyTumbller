@@ -18,7 +18,7 @@ void Wheel::setup() {
 
     stop();
     start_time = millis();
-    print_current_time_and_encoder();
+    // print_current_time_and_encoder();
 }
 
 void Wheel::_calculate_speed(){

@@ -55,9 +55,29 @@ class API():
         try:
             self.ser.write( ("{}\n").format(command).encode() )
             self.logger.info("Sent message: '{}'".format(command))
+            self.confirm_echo(command) 
+
         except:
             self.logger.critical("Could not send message: '{}'".format(command))
 
+    def confirm_echo(self, com):
+        line = self.read_line()
+        if line == com :
+            self.logger.info ("Message sent and echoed successfully")
+        else:
+            self.logger.critical ("Message did not echo back correctly")
+
+
+    def read_line (self):
+        try:
+            line = self.ser.readline()
+            line = line.decode("utf-8") 
+            line = line.replace("\r\n","")
+
+            self.logger.info( "Read line: '{}'".format(line) )
+            return line 
+        except:
+            self.logger.critical("Could not recive message")
 
 
 

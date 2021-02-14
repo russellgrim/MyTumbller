@@ -27,5 +27,8 @@ def test_find_port():
 
 def test_send_command():
     api.send_command("led start blinking")
+    # time.sleep(1)
+    # line = api.read_line()
+    # assert(line == "led start blinking")
     time.sleep(4)
     api.send_command("led stop blinking")
