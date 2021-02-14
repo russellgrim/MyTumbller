@@ -38,4 +38,4 @@ SDK/logs
 
 *.pyc
 *.pyo
-SDK/_pycache_
+SDK/__pycache__/

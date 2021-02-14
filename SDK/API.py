@@ -1,6 +1,7 @@
 import serial
 import logging
 from log_config import *
+import time
 
 
 
@@ -15,11 +16,14 @@ class API():
         """
         self.logger = logging.getLogger(__name__) # log differenciate between classes
         self.comPort = comPort
-        self.ser = serial.Serial() # Create the serial port object
-        self._init_Port()
         self._is_connected = None
+        
+        # functions
+        self.ser = serial.Serial() # Create the serial port object
+        self._connect()
+        
     
-    def _init_Port(self):
+    def _connect(self):
         try:
             # Configure the COM port
             self.ser.port = self.comPort
@@ -30,13 +34,31 @@ class API():
             self.ser.open() # Open the COM port
             self._is_connected = True
             self.logger.info("Connected to port: {}".format(self.comPort))
+            time.sleep(2)
         except:
             self._is_connected = False
             self.logger.critical("Connection failed")
     
     def disconnect(self):
+        """!
+
+        @param comPort
+        """
         self.ser.close() # Close the COM port
         self.logger.info("Disconnected from port: {}".format(self.comPort))
+
+    def send_command(self, command):
+        """!
+
+        @param comPort
+        """
+        try:
+            self.ser.write( ("{}\r").format(command).encode() )
+            self.logger.info("Sent message: '{}'".format(command))
+        except:
+            self.logger.critical("Could not send message: '{}'".format(command))
+
+
 
 
     

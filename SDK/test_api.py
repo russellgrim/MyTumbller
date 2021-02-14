@@ -2,7 +2,7 @@ import pytest
 from API import *
 import logging
 from log_config import *
-
+import time
 
 global logger 
 logger = logging.getLogger(__name__)
@@ -21,9 +21,9 @@ def teardown_module(module):
     """
     api.disconnect()
 
-def test_is_working():
-    assert(True)
 
 def test_find_port():
-    
     assert(api.is_connected)
+
+def test_send_command():
+    api.send_command("a")
