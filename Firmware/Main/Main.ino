@@ -1,5 +1,6 @@
 #include "Controller.h" 
 #include "Wheel.h"
+#include "Led.h"
 
 #include "Pins.h"
 #include "PinChangeInt.h"
@@ -8,6 +9,7 @@
 
 // instantiation
 Wheel left_wheel;
+// Led led_1;
 
 int incomingByte = 0;
 String command;
@@ -16,6 +18,7 @@ String command;
 void setup() {
   // left_wheel.setup();
   left_wheel.setup();
+  // led_1.setup();
   pinMode(LED_BUILTIN, OUTPUT);
   attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_A_PIN), encoderCountLeftA, CHANGE);
 }
@@ -24,6 +27,7 @@ void setup() {
 void loop() {
   // left_wheel.loop();
   read_serial();
+  // led_1.loop();
 }
 
 void encoderCountLeftA() {
@@ -38,6 +42,8 @@ void read_serial() {
 
     if (c == '\n') {
       parse_command(command);
+      // Serial.println(command);
+      command = "";
     } else {
       command += c;
     }
@@ -45,7 +51,7 @@ void read_serial() {
 }
 
 void parse_command(String com){
-  if (com == 'a'){
+  if (com.equalsIgnoreCase("a") ){
     blink_led();
   }
 }

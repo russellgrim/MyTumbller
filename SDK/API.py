@@ -53,7 +53,7 @@ class API():
         @param comPort
         """
         try:
-            self.ser.write( ("{}\r").format(command).encode() )
+            self.ser.write( ("{}\n").format(command).encode() )
             self.logger.info("Sent message: '{}'".format(command))
         except:
             self.logger.critical("Could not send message: '{}'".format(command))
