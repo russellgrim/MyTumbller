@@ -35,3 +35,4 @@ def test_send_command():
 
 def test_start_pid():
     api.send_command("pid")
+    

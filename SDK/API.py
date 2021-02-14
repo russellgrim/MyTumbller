@@ -74,7 +74,7 @@ class API():
             line = line.decode("utf-8") 
             line = line.replace("\r\n","")
 
-            self.logger.info( "Read line: '{}'".format(line) )
+            # self.logger.info( "Read line: '{}'".format(line) )
             return line 
         except:
             self.logger.critical("Could not recive message")

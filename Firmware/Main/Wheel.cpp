@@ -42,6 +42,8 @@ void Wheel::_PID_loop (){
         
     } else {
         stop();
+        Serial.println("Done");
+        mode = "None";
     }
 }
 

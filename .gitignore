@@ -39,3 +39,6 @@ SDK/logs
 *.pyc
 *.pyo
 SDK/__pycache__/
+Results/
+*.csv
+*.png
