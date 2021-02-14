@@ -10,6 +10,7 @@
 Wheel left_wheel;
 
 int incomingByte = 0;
+String command;
 
 
 void setup() {
@@ -31,15 +32,20 @@ void encoderCountLeftA() {
 
 void read_serial() {
   // send data only when you receive data:
-  if (Serial.available() > 0) {
+  if ( Serial.available() ) {
     // read the incoming byte:
-    incomingByte = Serial.read();
+    char c = Serial.read();
 
-    // say what you got:
-    // Serial.print("I received: ");
-    // Serial.println(incomingByte, DEC);
+    if (c == '\n') {
+      parse_command(command);
+    } else {
+      command += c;
+    }
   }
-  if (incomingByte == 97){
+}
+
+void parse_command(String com){
+  if (com == 'a'){
     blink_led();
   }
 }

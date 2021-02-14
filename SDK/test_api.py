@@ -27,3 +27,5 @@ def test_find_port():
 
 def test_send_command():
     api.send_command("a")
+    time.sleep(2)
+    api.send_command("a")
