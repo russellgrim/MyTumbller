@@ -17,7 +17,6 @@ String command;
 
 void setup() {
   // left_wheel.setup();
-  left_wheel.setup();
   led_1.setup();
   
   attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_A_PIN), encoderCountLeftA, CHANGE);
@@ -40,18 +39,19 @@ void read_serial() {
     // read the incoming byte:
     char c = Serial.read();
 
-    if (c == '\n') {
+    if (c == '\n') { // if end of command
       parse_command(command);
-      // Serial.println(command);
-      command = "";
+      command = ""; //empty command
     } else {
-      command += c;
+      command += c; // append char to command
     }
   }
 }
 
 void parse_command(String com){
-  if (com.equalsIgnoreCase("a") ){
-    led_1.blink();
+  if (com.equalsIgnoreCase("led start blinking") ){
+    led_1.start_blinking();
+  } else if (com.equalsIgnoreCase("led stop blinking") ){
+    led_1.stop_blinking();
   }
 }

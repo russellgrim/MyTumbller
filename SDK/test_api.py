@@ -26,6 +26,6 @@ def test_find_port():
     assert(api.is_connected)
 
 def test_send_command():
-    api.send_command("a")
-    time.sleep(2)
-    api.send_command("a")
+    api.send_command("led start blinking")
+    time.sleep(4)
+    api.send_command("led stop blinking")

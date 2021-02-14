@@ -9,9 +9,16 @@ public:
     ~Led ();
     void setup();
     void loop();
-    void blink();
+    void start_blinking();
+    void stop_blinking();
+    void toggle_led_state();
 
 private:
+    int blink_period = 1000;
+    int previous_change_time = 0;
+    int led_state = LOW;
+    bool _is_blinking = false;
+    bool _is_blink_time();
 
 };
 
