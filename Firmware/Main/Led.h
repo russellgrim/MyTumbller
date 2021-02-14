@@ -1,5 +1,7 @@
-#ifndef Wheel_h
-#define Wheel_h
+#ifndef Led_h
+#define Led_h
+
+#include "Arduino.h"
 
 class Led {
 public:
@@ -7,6 +9,7 @@ public:
     ~Led ();
     void setup();
     void loop();
+    void blink();
 
 private:
 

@@ -9,7 +9,7 @@
 
 // instantiation
 Wheel left_wheel;
-// Led led_1;
+Led led_1;
 
 int incomingByte = 0;
 String command;
@@ -18,16 +18,16 @@ String command;
 void setup() {
   // left_wheel.setup();
   left_wheel.setup();
-  // led_1.setup();
-  pinMode(LED_BUILTIN, OUTPUT);
+  led_1.setup();
+  
   attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_A_PIN), encoderCountLeftA, CHANGE);
 }
 
 // the loop function runs over and over again forever
 void loop() {
   // left_wheel.loop();
+  led_1.loop();
   read_serial();
-  // led_1.loop();
 }
 
 void encoderCountLeftA() {
@@ -52,13 +52,6 @@ void read_serial() {
 
 void parse_command(String com){
   if (com.equalsIgnoreCase("a") ){
-    blink_led();
+    led_1.blink();
   }
-}
-
-void blink_led() {
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);                       // wait for a second
 }
