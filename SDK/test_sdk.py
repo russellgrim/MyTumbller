@@ -15,4 +15,7 @@ def teardown_module(module):
     """ teardown any state that was previously setup with a setup_module
     method.
     """
-    sdk.api.disconnect()
+    sdk.disconnect()
+
+def test_run_PID_speed_test():
+    sdk.run_pid_speed_test()

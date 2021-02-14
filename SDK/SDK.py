@@ -35,7 +35,7 @@ class SDK():
 
     def run_pid_speed_test(self):
         self.api.send_command("pid")
-        df = sdk.get_data()
+        df = self.get_data()
         plt.plot(df['Time (ms)'], df['Speed (counts per ms)'])
         plt.xlabel("Time (ms)")
         plt.ylabel('Speed (counts per ms)')
