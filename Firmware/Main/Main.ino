@@ -16,7 +16,7 @@ String command;
 
 
 void setup() {
-  // left_wheel.setup();
+  left_wheel.setup();
   led_1.setup();
   
   attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_A_PIN), encoderCountLeftA, CHANGE);
@@ -32,6 +32,9 @@ void loop() {
 void encoderCountLeftA() {
   left_wheel.encoderCountLeftA();
 }
+
+
+// ====================== API =========================
 
 void read_serial() {
   // send data only when you receive data:
@@ -49,6 +52,7 @@ void read_serial() {
 }
 
 void parse_command(String com){
+  Serial.println(com);
   if (com.equalsIgnoreCase("led start blinking") ){
     led_1.start_blinking();
   } else if (com.equalsIgnoreCase("led stop blinking") ){
