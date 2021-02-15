@@ -4,9 +4,7 @@ import matplotlib.pyplot as plt
 
 class SDK():
     """!
-
     """
-
     def __init__(self, comPort):
         # self.comport = comPort
         self.api = API(comPort)
@@ -40,8 +38,8 @@ class SDK():
         plt.xlabel("Time (ms)")
         plt.ylabel('Speed (counts per ms)')
         plt.title("PID Speed Control Test")
-        plt.savefig("../Results/pid_test.png")
-        df.to_csv("../Results/pid_test.csv")
+        plt.savefig("../Results/pid_test_1_raw.png")
+        df.to_csv("../Results/pid_test_1_raw.csv")
         return df
 
     def disconnect(self):
