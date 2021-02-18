@@ -61,19 +61,22 @@ class SDK():
         df = self.get_data()
         fig, axs = plt.subplots(3,1)
         axs[0].plot(df['Time (ms)'], df['Speed (counts per ms)'], label="Speed (counts per ms)")
-        axs[1].plot(df['Time (ms)'], df['Position (counts)'], label='Position (counts)')
         axs[0].plot(df['Time (ms)'], df['Speed Target (counts per ms)'], label='Speed Target (counts per ms)')
+        axs[0].legend()
+        axs[1].plot(df['Time (ms)'], df['Position (counts)'], label='Position (counts)')
         axs[1].plot(df['Time (ms)'], df['Position Target (counts)'], label='Position Target (counts)')
+        axs[1].legend()
         axs[2].plot(df['Time (ms)'], df['PWM (0-255)'], label='PWM (0-255)')
+        axs[2].legend()
         
-        plt.legend()
         axs[2].set_xlabel("Time (ms)")
         axs[0].set_ylabel('Speed (counts per ms)')
         axs[1].set_ylabel('Position (counts)')
         axs[2].set_ylabel('PWM (0-255)')
         axs[0].set_title("PID Position Control Test")
-        fig.savefig("../Results/pid_test_3_raw.png")
-        df.to_csv("../Results/pid_test_3_raw.csv")
+        fig.show()
+        fig.savefig("../Results/pid_test_8_raw.png")
+        df.to_csv("../Results/pid_test_8_raw.csv")
         return df
     
     

@@ -29,7 +29,7 @@ private:
     unsigned long position_error_p;
     unsigned long position_error_i;
 
-    float Kp_position = 0.01;
+    float Kp_position = 0.00004;
     float Ki_position = 0;
     
     //admin
@@ -41,7 +41,7 @@ private:
     float error_p;
     float error_i = 0;
     float Kp = 1000;
-    float Ki = 300;
+    float Ki = 50;
 
 
     bool _is_sample_time();

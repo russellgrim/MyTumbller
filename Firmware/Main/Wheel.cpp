@@ -35,9 +35,10 @@ void Wheel::loop() {
 }
 
 void Wheel::_position_control_pid() {
-    if ( millis() - start_time < 15000) {
+    if ( millis() - start_time < 25000) {
         if ( _is_sample_time() ) {
             _calculate_speed();
+            _calculate_speed_set_point();
             _calculate_speed_pwm_in();
             print_current_time_and_encoder();
             forward(pwm);
