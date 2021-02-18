@@ -35,4 +35,7 @@ def test_send_command():
 
 def test_start_pid():
     api.send_command("pid")
+
+def test_start_position_control():
+    api.send_command("position control")
     

@@ -19,3 +19,6 @@ def teardown_module(module):
 
 def test_run_PID_speed_test():
     sdk.run_pid_speed_test()
+
+def test_run_pid_position_control_test():
+    sdk.run_pid_position_control_test()

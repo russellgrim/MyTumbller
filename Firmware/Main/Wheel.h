@@ -19,10 +19,18 @@ private:
     // unsigned char speed = 20;
     volatile unsigned long encoder_count_left_a = 0;
     unsigned long previous_position;
+    unsigned long current_position;
     float speed = 0;
     unsigned long start_time;
     float sample_period = 50.0; //ms
     int previous_sample_time = millis();
+
+    int target_position = 1000;
+    unsigned long position_error_p;
+    unsigned long position_error_i;
+
+    float Kp_position = 0.01;
+    float Ki_position = 0;
     
     //admin
     String mode = "None";
@@ -38,8 +46,10 @@ private:
 
     bool _is_sample_time();
     void _calculate_speed();
-    void _calculate_pwm_in();
+    void _calculate_speed_pwm_in();
     void _PID_loop();
+    void _position_control_pid();
+    void _calculate_speed_set_point();
 };
 
 #endif

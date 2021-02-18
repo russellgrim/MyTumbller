@@ -60,5 +60,7 @@ void parse_command(String com){
     led_1.stop_blinking();
   } else if (com.equalsIgnoreCase("pid") ) {
     left_wheel.set_mode("PID");
+  }else if (com.equalsIgnoreCase("position control") ) {
+    left_wheel.set_mode("Position Control");
   }
 }
