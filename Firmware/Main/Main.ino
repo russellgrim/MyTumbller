@@ -20,7 +20,8 @@ void setup() {
   left_wheel.setup();
   led_1.setup();
   
-  attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_A_PIN), encoderCountLeftA, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_A_PIN), encoderCountLeftA, CHANGE );
+  // attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_A_PIN), encoderCountLeftDecrement,  RISING );
 }
 
 // the loop function runs over and over again forever
@@ -33,7 +34,9 @@ void loop() {
 void encoderCountLeftA() {
   left_wheel.encoderCountLeftA();
 }
-
+void encoderCountLeftDecrement() {
+  left_wheel.encoderCountLeftDecrement();
+}
 
 // ====================== API =========================
 

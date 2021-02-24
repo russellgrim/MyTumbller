@@ -75,8 +75,8 @@ class SDK():
         axs[2].set_ylabel('PWM (0-255)')
         axs[0].set_title("PID Position Control Test")
         fig.show()
-        fig.savefig("../Results/pid_test_9_raw.png")
-        df.to_csv("../Results/pid_test_9_raw.csv")
+        fig.savefig("../Results/pid_position_test_11_raw.png")
+        df.to_csv("../Results/pid_position_test_11_raw.csv")
         return df
 
     def run_pid_speed_control_test(self):
@@ -98,8 +98,8 @@ class SDK():
         axs[2].set_ylabel('PWM (0-255)')
         axs[0].set_title("PID Speed Control Test")
         fig.show()
-        fig.savefig("../Results/pid_speed_test_9_raw.png")
-        df.to_csv("../Results/pid__speed_test_9_raw.csv")
+        fig.savefig("../Results/pid_speed_test_10_raw.png")
+        df.to_csv("../Results/pid__speed_test_10_raw.csv")
         return df
     
     

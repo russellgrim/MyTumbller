@@ -14,24 +14,25 @@ public:
     void carBack(int speed);
     void move (int speed);
     void encoderCountLeftA();
+    void encoderCountLeftDecrement();
     void print_current_time_and_encoder();
     void set_mode(String modeIn);
 
 private:
     // unsigned char speed = 20;
-    volatile unsigned long encoder_count_left_a = 0;
-    unsigned long previous_position;
-    unsigned long current_position;
+    volatile long encoder_count_left_a = 0;
+    long previous_position;
+    long current_position;
     float speed = 0;
     unsigned long start_time;
     float sample_period = 50.0; //ms
     int previous_sample_time = millis();
 
     int target_position = 1000; // defult set point
-    unsigned long position_error_p;
-    unsigned long position_error_i;
+    int position_error_p;
+    int position_error_i;
 
-    float Kp_position = 0.0004;
+    float Kp_position = 0.003;
     float Ki_position = 0;
 
     

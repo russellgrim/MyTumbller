@@ -114,6 +114,8 @@ void Wheel::_calculate_speed_set_point(){
     position_error_i += position_error_p * sample_period;
     target_speed = Kp_position * position_error_p + Ki_position * position_error_i;
     if (target_speed > 0.9) {target_speed = 0.9;}
+    if (target_speed < -0.9) {target_speed = -0.9;}
+
 }
 
 
@@ -122,6 +124,7 @@ void Wheel::_calculate_speed_pwm_in(){
     error_i += error_p * sample_period ;
     pwm = Kp * error_p + Ki * error_i;
     if (pwm > 255) {pwm = 255;}
+    if (pwm < -255) {pwm = -255;}
 }
 
 
@@ -146,7 +149,7 @@ void Wheel::move (int speed) {
     if (speed >= 0){
         forward(speed);
     }else if (speed < 0 ) {
-        carBack(speed);
+        carBack(-speed);
     }
 }
 
@@ -161,11 +164,15 @@ void Wheel::carBack(int speed)
   digitalWrite(AIN1, 1);
   digitalWrite(BIN1, 1);
   analogWrite(PWMA_LEFT, speed);
-  analogWrite(PWMB_RIGHT, speed);
+//   analogWrite(PWMB_RIGHT, speed);
 }
 
 void Wheel::encoderCountLeftA() {
   encoder_count_left_a++;
+}
+
+void Wheel::encoderCountLeftDecrement() {
+  encoder_count_left_a--;
 }
 
 void Wheel::set_mode(String modeIn) {
