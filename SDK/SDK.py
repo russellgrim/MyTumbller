@@ -75,8 +75,8 @@ class SDK():
         axs[2].set_ylabel('PWM (0-255)')
         axs[0].set_title("PID Position Control Test")
         fig.show()
-        fig.savefig("../Results/pid_test_8_raw.png")
-        df.to_csv("../Results/pid_test_8_raw.csv")
+        fig.savefig("../Results/pid_test_9_raw.png")
+        df.to_csv("../Results/pid_test_9_raw.csv")
         return df
     
     

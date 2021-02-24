@@ -22,8 +22,8 @@ t, y = control.step_response(sys)
 H = control.tf([1],[1])
 
 
-Kp = 300
-Ki = 3
+Kp = 200
+Ki = 1
 Kd = 0
 # for Kp in [ 300]:
 for Kp in [ Kp]:
@@ -32,20 +32,39 @@ for Kp in [ Kp]:
         C = control.tf( [Kp,Ki] , [1,0] )
         sys_ol = control.series (sys , C)
 
-        sys_cl = control.feedback ( sys_ol , H ,  -1)
+        sys_cl = control.feedback ( sys_ol , 1 ,  -1) # Output TF
+        sys_cl_e = control.feedback (  1 , sys_ol ,   -1) # Error TF
+        sys_cl_u = control.feedback (  C , sys ,   -1) # Input TF
 
+        fig, axs = plt.subplots(2, 1)
         t, y = control.step_response(sys_cl)
-        plt.plot(t, y, label=("Kp = " + str(Kp) + " , Ki = " + str(Ki) ))
-plt.legend()
+        # plt.plot(t, y, label=("Kp = " + str(Kp) + " , Ki = " + str(Ki) ))
+        axs[0].plot(t, y, label="sys_cl")
+
+        t, y = control.step_response(sys_cl_e)
+        axs[0].plot(t, y, label="sys_cl_e")
+        axs[0].legend()
+        t, y = control.step_response(sys_cl_u)
+        axs[1].plot(t, y, label="sys_cl_u")
+
+# sys_cl2 = sys_ol/(1+sys_ol)
+# denom = control.parallel( [1] , sys_ol )
 
 
-rlist, klist = control.rlocus(sys_cl)
-breakpoint()
 
 
+# breakpoint()
+axs[1].legend()
+# plt.show()
+# plt.clf
 
+# rlist, klist = control.rlocus(sys_cl)
+# plt.plot(t, y)
+# plt.show()
+# plt.clf()
+# plt.plot(rlist)
+# plt.show()
+# sisotool(sys_cl)
 plt.show()
+# print (klist[86])
 
-
-
-plt.show()

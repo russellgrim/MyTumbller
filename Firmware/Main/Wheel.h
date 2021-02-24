@@ -40,8 +40,8 @@ private:
     unsigned char pwm;
     float error_p;
     float error_i = 0;
-    float Kp = 1000;
-    float Ki = 50;
+    float Kp = 200;
+    float Ki = 1;
 
 
     bool _is_sample_time();
