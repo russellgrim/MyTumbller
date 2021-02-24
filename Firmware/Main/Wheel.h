@@ -10,7 +10,9 @@ public:
     void setup();
     void loop();
     void stop();
-    void forward(unsigned char speed);
+    void forward(int speed);
+    void carBack(int speed);
+    void move (int speed);
     void encoderCountLeftA();
     void print_current_time_and_encoder();
     void set_mode(String modeIn);
@@ -25,31 +27,34 @@ private:
     float sample_period = 50.0; //ms
     int previous_sample_time = millis();
 
-    int target_position = 1000;
+    int target_position = 1000; // defult set point
     unsigned long position_error_p;
     unsigned long position_error_i;
 
-    float Kp_position = 0.00004;
+    float Kp_position = 0.0004;
     float Ki_position = 0;
+
     
     //admin
     String mode = "None";
     
     //control
-    float target_speed = 0.5;
-    unsigned char pwm;
+    float target_speed = 0.9; // defult set point
+    int pwm;
     float error_p;
     float error_i = 0;
     float Kp = 200;
-    float Ki = 1;
+    float Ki = 0.5;
 
 
     bool _is_sample_time();
-    void _calculate_speed();
+    void _read_in_sensors();
     void _calculate_speed_pwm_in();
     void _PID_loop();
     void _position_control_pid();
+    void _speed_control_pid();
     void _calculate_speed_set_point();
+    
 };
 
 #endif

@@ -62,5 +62,7 @@ void parse_command(String com){
     left_wheel.set_mode("PID");
   }else if (com.equalsIgnoreCase("position control") ) {
     left_wheel.set_mode("Position Control");
+  }else if (com.equalsIgnoreCase("speed control") ) {
+    left_wheel.set_mode("PID Speed control");
   }
 }

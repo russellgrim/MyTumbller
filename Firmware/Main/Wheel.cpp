@@ -31,17 +31,19 @@ void Wheel::loop() {
         ;
     } else if (mode == "Position Control"){
         _position_control_pid();
+    }else if (mode == "PID Speed control"){
+        _speed_control_pid();
     }
 }
 
 void Wheel::_position_control_pid() {
-    if ( millis() - start_time < 25000) {
+    if ( millis() - start_time < 15000) {
         if ( _is_sample_time() ) {
-            _calculate_speed();
+            _read_in_sensors();
             _calculate_speed_set_point();
             _calculate_speed_pwm_in();
             print_current_time_and_encoder();
-            forward(pwm);
+            move(pwm);
         }
     }else {
         stop();
@@ -50,14 +52,30 @@ void Wheel::_position_control_pid() {
     }
 }
 
+void Wheel::_speed_control_pid() {
+    if ( millis() - start_time < 15000) {
+        if ( _is_sample_time() ) {
+            _read_in_sensors();
+            _calculate_speed_pwm_in();
+            print_current_time_and_encoder();
+            move(pwm);
+        }
+    }else {
+        stop();
+        Serial.println("Done");
+        mode = "None";
+    }
+}
+
+
 void Wheel::_PID_loop (){
     if ( millis() - start_time < 15000) {
         if ( _is_sample_time() ) {
-            _calculate_speed();
+            _read_in_sensors();
             _calculate_speed_set_point();
             _calculate_speed_pwm_in();
             print_current_time_and_encoder();
-            forward(pwm);
+            move(pwm);
         }
         
     } else {
@@ -67,9 +85,12 @@ void Wheel::_PID_loop (){
     }
 }
 
-void Wheel::_calculate_speed(){
-    previous_position = current_position;
-    current_position = encoder_count_left_a;
+void Wheel::_read_in_sensors(){
+    /*!
+    read encoders to find position and calculate speed.
+    */
+    previous_position = current_position; // position from previous sample
+    current_position = encoder_count_left_a; 
     speed = (float)( current_position - previous_position ) / (float)sample_period ; //dx/dt
 }
 
@@ -90,15 +111,15 @@ void Wheel::print_current_time_and_encoder() {
 
 void Wheel::_calculate_speed_set_point(){
     position_error_p = target_position - current_position;
-    position_error_i += position_error_p;
+    position_error_i += position_error_p * sample_period;
     target_speed = Kp_position * position_error_p + Ki_position * position_error_i;
-    if (target_speed > 1) {target_speed = 1;}
+    if (target_speed > 0.9) {target_speed = 0.9;}
 }
 
 
 void Wheel::_calculate_speed_pwm_in(){
     error_p = target_speed - speed;
-    error_i += error_p;
+    error_i += error_p * sample_period ;
     pwm = Kp * error_p + Ki * error_i;
     if (pwm > 255) {pwm = 255;}
 }
@@ -121,10 +142,26 @@ void Wheel::stop() {
   analogWrite(PWMA_LEFT, 0);
 }
 
-void Wheel::forward(unsigned char speed) {
+void Wheel::move (int speed) {
+    if (speed >= 0){
+        forward(speed);
+    }else if (speed < 0 ) {
+        carBack(speed);
+    }
+}
+
+void Wheel::forward(int speed) {
   digitalWrite(AIN1, 0);
   digitalWrite(BIN1, 0);
   analogWrite(PWMA_LEFT, speed);
+}
+
+void Wheel::carBack(int speed)
+{
+  digitalWrite(AIN1, 1);
+  digitalWrite(BIN1, 1);
+  analogWrite(PWMA_LEFT, speed);
+  analogWrite(PWMB_RIGHT, speed);
 }
 
 void Wheel::encoderCountLeftA() {
