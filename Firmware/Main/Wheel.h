@@ -21,6 +21,7 @@ public:
 private:
     // unsigned char speed = 20;
     volatile long encoder_count_left_a = 0;
+    int m_direction;
     long previous_position;
     long current_position;
     float speed = 0;
@@ -33,7 +34,7 @@ private:
     int position_error_i;
 
     float Kp_position = 0.003;
-    float Ki_position = 0;
+    float Ki_position = 0.000001;
 
     
     //admin

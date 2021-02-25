@@ -168,7 +168,13 @@ void Wheel::carBack(int speed)
 }
 
 void Wheel::encoderCountLeftA() {
-  encoder_count_left_a++;
+  m_direction = digitalRead(BIN1);
+  if (!m_direction){
+    encoder_count_left_a++;
+  }else{
+      encoder_count_left_a--;
+  }
+  
 }
 
 void Wheel::encoderCountLeftDecrement() {
