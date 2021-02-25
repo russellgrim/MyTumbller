@@ -33,6 +33,23 @@ void Wheel::loop() {
         _position_control_pid();
     }else if (mode == "PID Speed control"){
         _speed_control_pid();
+    }else if (mode == "PWM step response"){
+        _pwm_step_response();
+    }
+}
+
+void Wheel::_pwm_step_response(){
+    if ( millis() - start_time < 15000) {
+        if ( _is_sample_time() ) {
+            _read_in_sensors();
+            print_current_time_and_encoder();
+            pwm = 255;
+            move(pwm);
+        }
+    }else {
+            stop();
+            Serial.println("Done");
+            mode = "None";
     }
 }
 

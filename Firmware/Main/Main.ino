@@ -67,5 +67,7 @@ void parse_command(String com){
     left_wheel.set_mode("Position Control");
   }else if (com.equalsIgnoreCase("speed control") ) {
     left_wheel.set_mode("PID Speed control");
+  }else if (com.equalsIgnoreCase("PWM step response") ) {
+    left_wheel.set_mode("PWM step response");
   }
 }

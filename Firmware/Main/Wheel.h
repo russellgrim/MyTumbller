@@ -29,12 +29,12 @@ private:
     float sample_period = 50.0; //ms
     int previous_sample_time = millis();
 
-    int target_position = 1000; // defult set point
+    int target_position = 3000; // defult set point
     int position_error_p;
     int position_error_i;
 
     float Kp_position = 0.003;
-    float Ki_position = 0.000001;
+    float Ki_position = 0;
 
     
     //admin
@@ -56,6 +56,7 @@ private:
     void _position_control_pid();
     void _speed_control_pid();
     void _calculate_speed_set_point();
+    void _pwm_step_response();
     
 };
 

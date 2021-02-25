@@ -75,8 +75,8 @@ class SDK():
         axs[2].set_ylabel('PWM (0-255)')
         axs[0].set_title("PID Position Control Test")
         fig.show()
-        fig.savefig("../Results/pid_position_test_11_raw.png")
-        df.to_csv("../Results/pid_position_test_11_raw.csv")
+        fig.savefig("../Results/pid_position_test_12_raw.png")
+        df.to_csv("../Results/pid_position_test_12_raw.csv")
         return df
 
     def run_pid_speed_control_test(self):
@@ -101,6 +101,29 @@ class SDK():
         fig.savefig("../Results/pid_speed_test_10_raw.png")
         df.to_csv("../Results/pid__speed_test_10_raw.csv")
         return df
+
+    def run_PWM_step_response(self):
+        self.api.send_command("PWM step response")
+        df = self.get_data()
+        fig, axs = plt.subplots(3,1)
+        axs[0].plot(df['Time (ms)'], df['Speed (counts per ms)'], label="Speed (counts per ms)")
+        axs[0].plot(df['Time (ms)'], df['Speed Target (counts per ms)'], label='Speed Target (counts per ms)')
+        axs[0].legend()
+        axs[1].plot(df['Time (ms)'], df['Position (counts)'], label='Position (counts)')
+        axs[1].plot(df['Time (ms)'], df['Position Target (counts)'], label='Position Target (counts)')
+        axs[1].legend()
+        axs[2].plot(df['Time (ms)'], df['PWM (0-255)'], label='PWM (0-255)')
+        axs[2].legend()
+        
+        axs[2].set_xlabel("Time (ms)")
+        axs[0].set_ylabel('Speed (counts per ms)')
+        axs[1].set_ylabel('Position (counts)')
+        axs[2].set_ylabel('PWM (0-255)')
+        axs[0].set_title("PWM Step Response Test")
+        fig.show()
+        fig.savefig("../Results/pwm_step_response_test_10_raw.png")
+        df.to_csv("../Results/pwm_step_response_test_10_raw.csv")
+        return df
     
     
     def disconnect(self):
@@ -110,6 +133,7 @@ class SDK():
 
 if __name__ == '__main__':
     sdk = SDK("COM3")
-    sdk.run_pid_position_control_test()
+    sdk.run_PWM_step_response()
+    # sdk.run_pid_position_control_test()
     # sdk.run_pid_speed_control_test()
     sdk.disconnect()
